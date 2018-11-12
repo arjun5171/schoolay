@@ -1,0 +1,56 @@
+<%= form_tag create_school_home_index_path, id: 'school_form', method: 'post', class: "form-horizontal" do  |form|%>
+  <div class="panel-group" style="margin: 50px">
+    <div class="panel panel-default">
+      <div class="panel-heading text-center col-md-8"> <h3 style="color:DarkSlateBlue;"><u>Create School Account</u></h3></div>
+      <div class="panel-body" >
+
+        <div class="form-group" style="margin-bottom: 15px">
+          <div class="col-sm-8 col-md-8">
+            <input type="text" class="form-control" id="school_name" style="background: transparent;border: none;border-bottom: 1px solid #000000;-webkit-box-shadow: none;box-shadow: none;border-radius: 0;" name="school_name" required = 'true' placeholder='School Name'>
+          </div>
+        </div>  
+
+        <div class="form-group" style="margin-bottom: 15px">
+          <div class="col-sm-8 col-md-8">
+            <input type="text" class="form-control" id="contact_person" name="contact_person" required = 'true' placeholder='School contact person' style="background: transparent;border: none;border-bottom: 1px solid #000000;-webkit-box-shadow: none;box-shadow: none;border-radius: 0;">
+          </div>
+        </div>  
+
+
+        <div class="form-group" style="margin-bottom: 15px">
+          <div class="col-sm-8 col-md-8">
+            <input type="text" class="form-control" id="phone_number" name="phone_number" required = 'true' placeholder='Phone number' style="background: transparent;border: none;border-bottom: 1px solid #000000;-webkit-box-shadow: none;box-shadow: none;border-radius: 0;">
+          </div>
+        </div>  
+
+
+        <div class="form-group" style="margin-bottom: 15px">
+          <div class="col-sm-8 col-md-8">
+            <input type="email" class="form-control" id="email_address" name="email_address" required = 'true' placeholder='Email address' style="background: transparent;border: none;border-bottom: 1px solid #000000;-webkit-box-shadow: none;box-shadow: none;border-radius: 0;">
+          </div>
+        </div>  
+
+        <div class="form-group" style="margin-bottom: 15px">
+          <div class="col-sm-8 col-md-8">
+            <textarea class="form-control" rows="6" id="school_address" name="school_address" required = 'true' placeholder='School address' style="background: transparent;border: none;border-bottom: 1px solid #000000;-webkit-box-shadow: none;box-shadow: none;border-radius: 0;"></textarea>
+          </div>
+        </div>  
+
+
+        <div class="form-group" style="margin-bottom: 15px">
+          <div class="col-sm-8 col-md-8">
+            <select class="form-control" id="school_category" name="school_category" required = 'true' style="background: transparent;border: none;border-bottom: 1px solid #000000;-webkit-box-shadow: none;box-shadow: none;border-radius: 0;">
+                <option value="">Select School Category</option>
+                <option value="category1">category1</option>
+                <option value="category2">category2</option>
+                <option value="category3">category3</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="panel-heading text-center col-md-8">
+    <button type="submit" class="btn btn-primary btn-dark-blue" style="text-align: center">Create Account</button>
+  </div>
+<% end %>

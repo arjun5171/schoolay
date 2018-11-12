@@ -1,0 +1,115 @@
+<!DOCTYPE HTML>
+<html>
+<head>  
+<script>
+window.onload = function () {
+
+var chart = new CanvasJS.Chart("chartContainer", {
+    animationEnabled: true,
+    theme: "light2", // "light1", "light2", "dark1", "dark2"
+    title:{
+        text: "Franchise Dashboard"
+    },
+    axisY: {
+        title: ""
+    },
+    data: [{        
+        type: "column",  
+        showInLegend: true, 
+        legendMarkerColor: "grey",
+        legendText: "",
+        dataPoints: [      
+            { y: 5000, label: "Admissions" },
+            { y: 2000,  label: "Inventory Requested" }
+        ]
+    }]
+});
+
+var chart2 = new CanvasJS.Chart("chartContainer2", {
+    animationEnabled: true,
+    theme: "light2", // "light1", "light2", "dark1", "dark2"
+    title:{
+        text: "Vendor Details"
+    },
+    axisY: {
+        title: ""
+    },
+    data: [{        
+        type: "column",  
+        showInLegend: true, 
+        legendMarkerColor: "grey",
+        legendText: "",
+        dataPoints: [      
+            { y: 1000, label: "Inventory" },
+            { y: 1500,  label: "Shipped" }
+        ]
+    }]
+});
+
+var chart3 = new CanvasJS.Chart("chartContainer3", {
+    animationEnabled: true,
+    theme: "light2", // "light1", "light2", "dark1", "dark2"
+    title:{
+        text: "Shipment Details"
+    },
+    axisY: {
+        title: ""
+    },
+    data: [{        
+        type: "column",  
+        showInLegend: true, 
+        legendMarkerColor: "grey",
+        legendText: "",
+        dataPoints: [      
+            { y: 300, label: "Shipment Dispatched" },
+            { y: 500,  label: "Shipment in Transit" },
+            { y: 700,  label: "Shipment Delivered" }
+        ]
+    }]
+});
+
+var chart4 = new CanvasJS.Chart("chartContainer4", {
+    animationEnabled: true,
+    title: {
+        text: "City Wise Inventory Requirement"
+    },
+    data: [{
+        type: "pie",
+        startAngle: 240,
+        yValueFormatString: "##0.00\"%\"",
+        indexLabel: "{label} {y}",
+        dataPoints: [
+            {y: 35, label: "Bangalore"},
+            {y: 20, label: "Hyderabad"},
+            {y: 30, label: "Mumbai"},
+            {y: 10, label: "Delhi"},
+            {y: 5, label: "Chennai"}
+        ]
+    }]
+});
+
+
+chart.render();
+chart2.render();
+chart3.render();
+chart4.render();
+
+}
+</script>
+<!-- Just an image -->
+<nav class="navbar navbar-expand-lg navbar-dark primary-color">
+    <div class="container">
+    <a class="justify-content-center" href="#" style="margin-left: 45%">
+        <img src="/logo.png" height="150px" alt="">
+    </a>
+    </div>
+</nav>
+</head>
+<body>
+<div id="chartContainer" style="height: 350px; width: 25%; margin-left:15%; margin-bottom: 5%; margin-top: 5%; margin-right: 5%; float:left"></div>
+<div id="chartContainer2" style="height: 350px; width: 25%; margin-left:20%; margin-bottom: 5%; margin-top: 5%; float:left"></div>
+<div id="chartContainer3" style="height: 350px; width: 25%; margin-left:15%; margin-bottom: 5%; margin-top: 5%; margin-right: 5%; float:left"></div>
+<div id="chartContainer4" style="height: 350px; width: 25%; margin-left:20%; margin-bottom: 5%; margin-top: 5%; float:left"></div>
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+</body>
+</html>
