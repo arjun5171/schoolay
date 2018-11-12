@@ -7,7 +7,6 @@ Rails.application.routes.draw do
   get 'auth/failure', to: redirect('/')
   get 'signout', to: 'sessions#destroy', as: 'signout'
 
-  resources :sessions, only: [:create, :destroy]
   resources :home do
   	get :index, :on => :collection
   	get :contact, :on => :collection
@@ -16,6 +15,8 @@ Rails.application.routes.draw do
     get :add_school, :on => :collection
     post :create_school, :on => :collection
   end
+
+  devise_for :users
 
   root to: "franchise#show"
 end

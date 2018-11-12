@@ -1,0 +1,23 @@
+<%= image_tag('/logo-1.png', alt: 'login-logo', style: 'display: block; margin: auto; width: 50%; height: 40%; padding-top: 40px')%>
+
+<table style=" margin: auto; width: 50%;" frame="box" BORDERCOLOR="#1D375C" cellpadding="10" > 
+  <tr bgcolor ="#1D375C"> <th colspan="2"> <font color="#fff">Login to your school account</font> </th> </tr>
+  <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+  <tr> 
+    <th> <%= f.label :user_id, "School ID" %> </th>
+    <th> <%= f.email_field :email, autofocus: true, autocomplete: "email" %> </th>
+  </tr>
+  <tr> 
+    <th> <%= f.label "Password" %> </th>
+    <th> <%= f.password_field :password, autocomplete: "current-password" %> </th>
+  </tr>
+  <tr> 
+    <% if devise_mapping.rememberable? -%>
+    <th colspan="2"> <%= f.label :remember_me %> <%= f.check_box :remember_me %> </th>
+    <% end -%>
+  </tr>
+  <tr> 
+    <th colspan="2"  style="text-align:center"> <%= f.submit "LOGIN" , :class => 'btn btn-primary btn-login'%> </th>
+  </tr>
+ <% end %>
+</table>

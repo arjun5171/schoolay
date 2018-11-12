@@ -15,8 +15,8 @@
 @import "bootstrap";
 
 .navbar-dark-blue {
-    color: DarkSlateBlue;
-    background-color: #032C56;
+    color: #1D375C;
+    background-color: #1D375C;
 }
 
 .btn-primary,
@@ -25,6 +25,23 @@
 .btn-primary:visited,
 .btn-primary:active:focus,
 .btn-primary:focus {
-    background-color: DarkSlateBlue;
-    border-color: #032C56;
+    background-color: #1D375C;
+    border-color: #1D375C;
 } 
+.btn-login {
+	width: 130px;
+}
+
+p {
+	font-family: "Times New Roman", Helvetica, sans-serif;
+	font-size: 18px;
+}
+h1 {
+    font-family: "Times New Roman", Times, serif;
+}
+bgimg{
+	 background-image: url('https://i.pinimg.com/originals/b2/92/d1/b292d130dd3c00a48889499f0d4ca855.png');
+	 background-repeat: no-repeat;
+	 background-position: center; 
+	 position: relative;;
+}
