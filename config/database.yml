@@ -14,7 +14,7 @@ default: &default
   encoding: utf8
   pool: 5
   username: root
-  password:
+  password: 
   socket: /tmp/mysql.sock
 
 development:
@@ -49,6 +49,6 @@ test:
 #
 production:
   <<: *default
-  database: schoolay_production
-  username: schoolay
-  password: <%= ENV['SCHOOLAY_DATABASE_PASSWORD'] %>
+  database: schoolay_development
+  username: root
+  password: 

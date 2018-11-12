@@ -1,0 +1,70 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    app: schoolay
+    heritage: Tiller
+    release: schoolay
+    role: railsAppServer
+  name: schholay-app-server
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: schoolay
+      release: schoolay
+      role: railsAppServer
+  strategy:
+    rollingUpdate:
+      maxSurge: 2
+      maxUnavailable: 0
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: schoolay
+        release: schoolay
+        role: railsAppServer
+    spec:
+      containers:
+      - command:
+        - start_server
+        env:
+        - name: NODE_NAME
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: spec.nodeName
+        - name: POD_NAME
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.name
+        - name: APP_NAME
+          value: schoolay
+        - name: RAILS_ENV
+          value: production
+        image: nagarjunac/schoolay:1.0
+        imagePullPolicy: IfNotPresent
+        name: schoolay-app-server
+        ports:
+        - containerPort: 3000
+          name: http
+          protocol: TCP
+        resources:
+          limits:
+            cpu: "1"
+            memory: 2Gi
+          requests:
+            cpu: "1"
+            memory: 2Gi
+        securityContext: {}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        volumeMounts: []
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 60
+      volumes: []
