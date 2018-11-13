@@ -6,9 +6,9 @@ metadata:
     heritage: Tiller
     release: schoolay
     role: railsAppServer
-  name: schholay-app-server
+  name: schoolay-app-server
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: schoolay
@@ -61,10 +61,43 @@ spec:
         securityContext: {}
         terminationMessagePath: /dev/termination-log
         terminationMessagePolicy: File
-        volumeMounts: []
+        volumeMounts:
+        - mountPath: /schoolay/shared-assets/
+          name: shared-assets
+        - mountPath: /schoolay/sockets/
+          name: shared-socket
+      - env:
+        - name: APP_NAME
+          value: schoolay
+        image: nagarjunac/schoolay-nginx:1.0
+        imagePullPolicy: IfNotPresent
+        name: schoolay-nginx-container
+        ports:
+        - containerPort: 80
+          name: http
+          protocol: TCP
+        resources:
+          limits:
+            cpu: 100m
+            memory: 100Mi
+          requests:
+            cpu: 50m
+            memory: 50Mi
+        securityContext: {}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+        volumeMounts:
+        - mountPath: /srv/www/public/
+          name: shared-assets
+        - mountPath: /srv/www/schoolay/sockets/
+          name: shared-socket
       dnsPolicy: ClusterFirst
       restartPolicy: Always
       schedulerName: default-scheduler
       securityContext: {}
       terminationGracePeriodSeconds: 60
-      volumes: []
+      volumes: 
+      - emptyDir: {}
+        name: shared-assets
+      - emptyDir: {}
+        name: shared-socket

@@ -21,7 +21,7 @@ worker_processes 4
 
 # Help ensure your application will always spawn in the symlinked
 # "current" directory that Capistrano sets up.
-working_directory "/Users/nagarjunareddyc/schoolay" # available in 0.94.0+
+working_directory "/schoolay" # available in 0.94.0+
 
 # listen on both a Unix domain socket and a TCP port,
 # we use a shorter backlog for quicker failover when busy
@@ -31,7 +31,7 @@ listen "/tmp/unicorn.sock", :backlog => 1024, :tcp_nodelay => true, :tcp_nopush 
 timeout 30
 
 # feel free to point this anywhere accessible on the filesystem
-pid "/Users/nagarjunareddyc/schoolay/pids/railsapp.unicorn.pid"
+pid "/schoolay/pids/railsapp.unicorn.pid"
 
 # By default, the Unicorn logger will write to stderr.
 # Additionally, ome applications/frameworks log to stderr or stdout,

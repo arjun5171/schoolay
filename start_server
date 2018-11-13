@@ -1,4 +1,5 @@
 #!/bin/bash
 bundle exec rake RAILS_ENV=production assets:precompile
 bundle exec rake db:migrate
+cp -r /schoolay/public/* /schoolay/shared-assets/
 RAILS_ENV=production bundle exec unicorn -c config/unicorn.rb -p 3000

@@ -15,7 +15,7 @@ RUN apt-get update -qq && \
 	redis-tools \
 	vim \
 	jq
-RUN mkdir -p schoolay/pids
+RUN mkdir -p schoolay/pids schoolay/shared-assets schoolay/sockets
 WORKDIR schoolay
 COPY . .
 RUN bundle install
