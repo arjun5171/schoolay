@@ -18,5 +18,5 @@ Rails.application.routes.draw do
 
   devise_for :users
 
-  root to: "franchise#show"
+  root to: "home#index"
 end

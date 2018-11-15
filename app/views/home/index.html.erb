@@ -1,5 +1,5 @@
 <% if @franchise_list.present? %>
-	Franchise List: <%= select_tag("franchise",options_from_collection_for_select(@franchise_list,:id,:name), {:include_blank => true,:onchange => "filter_franchise()" }) %>
+	Select Franchise: <%= select_tag("franchise",options_from_collection_for_select(@franchise_list,:id,:name), {:include_blank => true,:onchange => "filter_franchise()" }) %>
 	<% if @franchise_data.present? %>
 	<div class="jumbotron text-center">
 	  <h1><u><%= @franchise_data["name"] %></u><br></h1>
