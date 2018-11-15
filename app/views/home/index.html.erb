@@ -1,19 +1,42 @@
 <% if @franchise_list.present? %>
 	Select Franchise: <%= select_tag("franchise",options_from_collection_for_select(@franchise_list,:id,:name), {:include_blank => true,:onchange => "filter_franchise()" }) %>
 	<% if @franchise_data.present? %>
-	<div class="jumbotron text-center">
-	  <h1><u><%= @franchise_data["name"] %></u><br></h1>
-	  <p><u><%= @franchise_data["email"] %></u></p> 
-	  <p><%= @franchise_data["phone_number"] %></p> 
-	  <p><%= @franchise_data["address"] %></p> 
-	</div>
-		
+		<div class="jumbotron text-center">
+		  <h1><u><%= @franchise_data["name"] %></u></h1>
+		  <p><u><%= @franchise_data["email"] %></u></p> 
+		  <%= @franchise_data["phone_number"] %><br>
+		  <%= @franchise_data["address"] %>
+		</div>
+		<div class="row">
+			<div class="col-md-6">
+				<div class="jumbotron text-center">
+				  Students registered - <b><%= @franchise_data["total_customers"].length %></b><br><br>
+				  Sale value per student - <b><%= @franchise_data["avg_sale_value"] %></b><br> <br>
+				  Total sales expected - <b>&#8377;<%= @franchise_data["total_sales"] %></b><br> <br>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="jumbotron text-center ">
+				  Number of students who purchased - <b><%= @franchise_data["purchased_customers"].length %></b><br><br>
+				  Sale completion percentage - <b><%= @franchise_data["sale_percentage"] %>%</b><br> <br>
+				  Total sales expected - <b>&#8377;<%= @franchise_data["expected_sales"] %></b><br> <br>
+				</div>
+			</div>
+		</div>
+		<% 
+		purchased_customers = @franchise_data["purchased_customers"].collect{|c| [c["first_name"].to_s+c["last_name"].to_s,c["phone"].to_s,c["email"].to_s]} 
+		np_customers = (@franchise_data["total_customers"]-@franchise_data["purchased_customers"]).collect{|c| [c["first_name"].to_s+c["last_name"].to_s,c["phone"].to_s,c["email"].to_s]} 
+		%>
+		<div class="jumbotron text-center col-md-6">
+			<%= link_to "Purchased Students", download_csv_home_index_path(headers: ["Name","Phone Number","Email"],data: purchased_customers.to_json,filename: "Purchased Students", format: "csv"), class: "btn btn-primary btn-dark-blue" %>
+			<%= link_to "Non-Purchased Students", download_csv_home_index_path(headers: ["Name","Phone Number","Email"],data: np_customers.to_json,filename: "Non-Purchased Students", format: "csv"), class: "btn btn-primary btn-dark-blue" %>
+		</div>		
 	<% end %>
 <% else %>
 	Currently not an admin, contact administrator.
 <% end %>
 
-<script type = "text/javascript">
+<script  type = "text/javascript">
 	$('franchise').change(filter_franchise);
 	function filter_franchise() {
 		window.location.search = '?franchise_id=' + $('select').val();

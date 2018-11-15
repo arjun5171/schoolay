@@ -45,3 +45,12 @@ bgimg{
 	 background-position: center; 
 	 position: relative;;
 }
+.jumbotron_small
+{   
+    padding-top: 15px;
+    padding-bottom:15px;
+    background-size: cover;
+    background: contain;
+    max-width:500px;  /* define the max width */
+ }
+ .classWithPad { margin:10px; padding:10px; }

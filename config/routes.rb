@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   get 'signout', to: 'sessions#destroy', as: 'signout'
 
   resources :home do
+    get :download_csv, :on => :collection
   	get :index, :on => :collection
   	get :contact, :on => :collection
     get :login, :on => :collection

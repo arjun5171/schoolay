@@ -1,9 +1,11 @@
 class HomeController < ApplicationController
+  include HomeHelper
+
   def index
     @franchise_list = current_user.try(:franchises)
     if params[:franchise_id].present? and current_user.try(:access?,params[:franchise_id])
       franchise = Franchise.find_by_id params[:franchise_id] 
-      @franchise_data = franchise.get_transaction_data if franchise.present?
+      @franchise_data = franchise.transaction_data  if franchise.present?
     end
   end
 
@@ -23,6 +25,16 @@ class HomeController < ApplicationController
   end
 
   def logout
+  end
+
+  def download_csv
+    data = JSON.parse params["data"]
+    csv = generate_csv params["headers"],data
+    filename = params["filename"] || "report"
+    respond_to do |format|
+      format.html
+      format.csv { send_data csv,:filename => filename+".csv"}
+    end
   end
   
 end
