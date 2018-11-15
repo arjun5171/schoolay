@@ -1,0 +1,21 @@
+<% if @franchise_list.present? %>
+	Franchise List: <%= select_tag("franchise",options_from_collection_for_select(@franchise_list,:id,:name), {:include_blank => true,:onchange => "filter_franchise()" }) %>
+	<% if @franchise_data.present? %>
+	<div class="jumbotron text-center">
+	  <h1><u><%= @franchise_data["name"] %></u><br></h1>
+	  <p><u><%= @franchise_data["email"] %></u></p> 
+	  <p><%= @franchise_data["phone_number"] %></p> 
+	  <p><%= @franchise_data["address"] %></p> 
+	</div>
+		
+	<% end %>
+<% else %>
+	Currently not an admin, contact administrator.
+<% end %>
+
+<script type = "text/javascript">
+	$('franchise').change(filter_franchise);
+	function filter_franchise() {
+		window.location.search = '?franchise_id=' + $('select').val();
+	}
+ </script>
