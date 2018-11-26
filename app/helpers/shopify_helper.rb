@@ -51,11 +51,11 @@ module ShopifyHelper
 		total_sale = cust.inject(0){|sum,customer| sum += customer["total_spent"].to_f}
 		{
 			"total_customers" => cust,
-			"avg_sale_value" =>  total_sale / cust.length,
+			"avg_sale_value" =>  (total_sale / cust.length).round(2),
 			"total_sales" => total_sale,
 			"purchased_customers" => purchased_customers,
-			"sale_percentage" => (purchased_customers.length.to_f/cust.length)*100,
-			"expected_sales" => total_sale * (purchased_customers.length.to_f/cust.length)
+			"sale_percentage" => (purchased_customers.length.to_f/cust.length*100).round(2),
+			"expected_sales" => (total_sale * purchased_customers.length.to_f/cust.length).round(2)
 		}
 	end
 
