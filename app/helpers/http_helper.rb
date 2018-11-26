@@ -2,8 +2,8 @@ module HttpHelper
 	require 'net/http'
 	require 'net/https'
 
-  def http_request(url, headers={}, options={}, method='get', body='')
-    result = get_response(url, headers, options, method, body)
+  def http_request(url, headers={}, options={}, method='get',params={}, body='')
+    result = get_response(url, headers, options, method,params, body)
     response = result[1] #result[1] has the response object
     response_cookies = result[3]
     result={"success"=>result[0], "response_code"=> response.present? ? response.code.to_i : result[2]}
@@ -21,7 +21,7 @@ module HttpHelper
     [result["success"], result["body"], result["response_code"].to_i , response_cookies]
   end
 
-  def get_response(url, headers={}, options={}, method='get', body='')
+  def get_response(url, headers={}, options={}, method='get',params={}, body='')
     success = true
     response_code = 200
     res_body = ""
@@ -34,6 +34,7 @@ module HttpHelper
       for i in 1..3 do #In case of redirect due to HTTP 301 - repeat only 3 times
         begin
           parsed_uri = URI.parse(URI.encode(url)) if parsed_uri.blank?
+          parsed_uri.query = URI.encode_www_form( params )
           #headers['Authorization'] = "Basic "+Base64.encode64("#{options.delete(:username)}:#{options.delete(:password)}") if options[:username].present?
           if (method == 'get') || (method == 'head')
             req = Net::HTTP::Get.new(parsed_uri.request_uri, headers)
