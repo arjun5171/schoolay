@@ -2,11 +2,10 @@ class HomeController < ApplicationController
   include HomeHelper
 
   def index
-    @franchise_list = current_user.try(:franchises)
-    if params[:franchise_id].present? and current_user.try(:access?,params[:franchise_id])
-      franchise = Franchise.find_by_id(params[:franchise_id]) ||  @franchise_list.try(:first)
-      @franchise_data = franchise.transaction_data  if franchise.present?
-    end
+    @franchise_list = current_user.try(:franchises)    
+    franchise = @franchise_list.try(:first)
+    franchise = Franchise.find_by_id(params[:franchise_id])  if params[:franchise_id].present? and current_user.try(:access?,params[:franchise_id])
+    @franchise_data = franchise.transaction_data  if franchise.present?
   end
 
   def contact
@@ -25,6 +24,9 @@ class HomeController < ApplicationController
   end
 
   def logout
+  end
+
+  def order_details
   end
 
   def download_csv
