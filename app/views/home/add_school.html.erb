@@ -39,14 +39,21 @@
 
         <div class="form-group" style="margin-bottom: 15px">
           <div class="col-sm-8 col-md-8">
-            <select class="form-control" id="school_category" name="school_category" required = 'true' style="background: transparent;border: none;border-bottom: 1px solid #b3b3b3;-webkit-box-shadow: none;box-shadow: none;border-radius: 0;">
+            <select class="form-control" id="school_category" name="school_category" required = 'true' style="background: transparent;border: none;border-bottom: 1px solid #b3b3b3;-webkit-box-shadow: none;box-shadow: none;border-radius: 0;" onchange="enableFileUpload('school_category')">
                 <option value="">Select School Category</option>
-                <option value="category1">School</option>
-                <option value="category2">Master</option>
-                <option value="category3">Super Master</option>
+                <option value="school">School</option>
+                <option value="master">Master</option>
+                <option value="super_master">Super Master</option>
             </select>
           </div>
         </div>
+
+        <div class="form-group" style="margin-bottom: 15px">
+          <div class="col-sm-8 col-md-8 csv-file">
+<!--             <input type="file" accept=".csv" class="form-control" id="csv_file" name="csv_file" placeholder='Upload file' style="background: transparent;border: none;border-bottom: 1px solid #b3b3b3;-webkit-box-shadow: none;box-shadow: none;border-radius: 0;"> -->
+          </div>
+        </div>  
+
       </div>
     </div>
   </div>
@@ -54,3 +61,17 @@
     <button type="submit" class="btn btn-primary btn-dark-blue" style="text-align: center">Create Account</button>
   </div>
 <% end %>
+
+
+
+<script type="text/javascript">
+
+  function enableFileUpload(school_category){
+    var selectedValue = $('#'+school_category).val();
+    $('#csv_file').remove();
+    if ( selectedValue === 'master' || selectedValue === 'super_master' ) {
+      $('<input type="file" accept=".csv" class="form-control" id="csv_file" name="csv_file" placeholder="Upload file" style="background: transparent;border: none;border-bottom: 1px solid #b3b3b3;-webkit-box-shadow: none;box-shadow: none;border-radius: 0;">').appendTo(".csv-file");
+    }
+  }
+
+</script>

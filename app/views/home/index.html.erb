@@ -30,7 +30,27 @@
 		<div class="jumbotron text-center col-md-6">
 			<%= link_to "Purchased Students", download_csv_home_index_path(headers: ["Name","Phone Number","Email"],data: purchased_customers.to_json,filename: "Purchased Students", format: "csv"), class: "btn btn-primary btn-dark-blue" %>
 			<%= link_to "Non-Purchased Students", download_csv_home_index_path(headers: ["Name","Phone Number","Email"],data: np_customers.to_json,filename: "Non-Purchased Students", format: "csv"), class: "btn btn-primary btn-dark-blue" %>
-		</div>		
+		</div>	
+		<div class="container">
+			<h2>Order Details</h2>
+			<table class="table table-striped">
+			  <thead>
+			    <tr>
+			      <th>Firstname</th>
+			      <th>Lastname</th>
+			      <th>Email</th>
+			    </tr>
+			  </thead>
+			  <tbody>
+<!-- 			  	<p>loop through the data</p> -->
+			    <tr>
+			      <td>John</td>
+			      <td>Doe</td>
+			      <td>john@example.com</td>
+			    </tr>
+			  </tbody>
+			</table>			
+		</div>	
 	<% end %>
 <% else %>
 	Currently not an admin, contact administrator.
