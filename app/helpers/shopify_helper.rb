@@ -48,7 +48,7 @@ module ShopifyHelper
 		purchased_orders = []
 		orders.map{|order| purchased_orders << order if order["line_items"][0]["title"].include? franchise.name }
 		purchased_orders = purchased_orders.compact
-		purchased_customers = purchased_orders.collect{|order| order["customer"]["id"]}.uniq.length
+		purchased_customers = purchased_orders.collect{|order| order["customer"].try(:[],"id")}.compact.uniq.length
 		total_sale = orders.inject(0){|sum,order| sum += order["total_price"].to_f}
 		{
 			"total_customers" => cust_count,
