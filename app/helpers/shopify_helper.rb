@@ -43,19 +43,21 @@ module ShopifyHelper
 	end
 
 	def get_transaction_data(franchise)
-		cust = get_customers
+		cust_count = get_customer_count
 		orders = get_orders
-		purchased_customers = []
-		orders.map{|order| purchased_customers << cust.find{|customer| customer["id"] == order["customer"]["id"]} if order["line_items"][0]["title"].include? franchise.name }
-		purchased_customers = purchased_customers.compact
-		total_sale = cust.inject(0){|sum,customer| sum += customer["total_spent"].to_f}
+		purchased_orders = []
+		orders.map{|order| purchased_orders << order if order["line_items"][0]["title"].include? franchise.name }
+		purchased_orders = purchased_orders.compact
+		purchased_customers = purchased_orders.collect{|order| order["customer"]["id"]}.uniq.length
+		total_sale = orders.inject(0){|sum,order| sum += order["total_price"].to_f}
 		{
-			"total_customers" => cust,
-			"avg_sale_value" =>  (total_sale / cust.length).round(2),
+			"total_customers" => cust_count,
+			"total_orders" => purchased_orders,
+			"avg_sale_value" =>  (total_sale / cust_count).round(2),
 			"total_sales" => total_sale,
 			"purchased_customers" => purchased_customers,
-			"sale_percentage" => (purchased_customers.length.to_f/cust.length*100).round(2),
-			"expected_sales" => (total_sale * purchased_customers.length.to_f/cust.length).round(2)
+			"sale_percentage" => (purchased_customers.to_f/cust_count*100).round(2),
+			"expected_sales" => (total_sale * purchased_customers.to_f/cust_count).round(2)
 		}
 	end
 

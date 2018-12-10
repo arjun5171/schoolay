@@ -10,47 +10,59 @@
 		<div class="row">
 			<div class="col-md-6">
 				<div class="jumbotron text-center">
-				  Students registered - <b><%= @franchise_data["total_customers"].length %></b><br><br>
+				  Students registered - <b><%= @franchise_data["total_customers"] %></b><br><br>
 				  Sale value per student - <b><%= @franchise_data["avg_sale_value"] %></b><br> <br>
 				  Total sales expected - <b>&#8377;<%= @franchise_data["total_sales"] %></b><br> <br>
 				</div>
 			</div>
 			<div class="col-md-6">
 				<div class="jumbotron text-center ">
-				  Number of students who purchased - <b><%= @franchise_data["purchased_customers"].length %></b><br><br>
+				  Number of students who purchased - <b><%= @franchise_data["purchased_customers"] %></b><br><br>
 				  Sale completion percentage - <b><%= @franchise_data["sale_percentage"] %>%</b><br> <br>
 				  Total sales expected - <b>&#8377;<%= @franchise_data["expected_sales"] %></b><br> <br>
 				</div>
 			</div>
 		</div>
-		<% 
-		purchased_customers = @franchise_data["purchased_customers"].collect{|c| [c["first_name"].to_s+c["last_name"].to_s,c["phone"].to_s,c["email"].to_s]} 
-		np_customers = (@franchise_data["total_customers"]-@franchise_data["purchased_customers"]).collect{|c| [c["first_name"].to_s+c["last_name"].to_s,c["phone"].to_s,c["email"].to_s]} 
-		%>
-		<div class="jumbotron text-center col-md-6">
-			<%= link_to "Purchased Students", download_csv_home_index_path(headers: ["Name","Phone Number","Email"],data: purchased_customers.to_json,filename: "Purchased Students", format: "csv"), class: "btn btn-primary btn-dark-blue" %>
-			<%= link_to "Non-Purchased Students", download_csv_home_index_path(headers: ["Name","Phone Number","Email"],data: np_customers.to_json,filename: "Non-Purchased Students", format: "csv"), class: "btn btn-primary btn-dark-blue" %>
-		</div>	
+		
 		<div class="container">
 			<h2>Order Details</h2>
 			<table class="table table-striped">
 			  <thead>
 			    <tr>
-			      <th>Firstname</th>
-			      <th>Lastname</th>
+			      <th>Name</th>
+			      <th>Phone</th>
 			      <th>Email</th>
+			      <th>Product</th>
+			      <th>Quantity</th>
+			      <th>Size</th>
+			      <th>Price</th>
+			      <th>Total Cost</th>
 			    </tr>
 			  </thead>
 			  <tbody>
-<!-- 			  	<p>loop through the data</p> -->
+			  	<% @franchise_data["total_orders"].each do |order| %>
+			  	<% address  = order["shipping_address"] || order["billing_address"] %>
 			    <tr>
-			      <td>John</td>
-			      <td>Doe</td>
-			      <td>john@example.com</td>
+			      <td><%= address.try(:[],"first_name").to_s + " " + address.try(:[],"last_name").to_s %></td>
+			      <td><%= order["phone"] %></td>
+			      <td><%= order["email"] %></td>
+			      <td><%= order["line_items"][0]["title"] %></td>
+			      <td><%= order["line_items"][0]["quantity"] %></td>
+			      <td><%= order["line_items"][0]["variant_title"] %></td>
+			      <td><%= order["line_items"][0]["price"] %></td>
+			      <td><%= order["total_price"] %></td>
 			    </tr>
+			    <% end %>
 			  </tbody>
 			</table>			
 		</div>	
+
+		<% 
+			purchased_orders = @franchise_data["total_orders"].collect{|c| [c["shipping_address"].try(:[],"first_name").to_s+c["shipping_address"].try(:[],"last_name").to_s,c["phone"].to_s,c["email"].to_s,c["line_items"][0]["title"],c["line_items"][0]["quantity"],c["line_items"][0]["variant_title"],c["line_items"][0]["price"],c["total_price"] ]} 
+		%>	
+		<div class="jumbotron text-center col-md-6">
+			<%= link_to "Purchased Students", download_csv_home_index_path(headers: ["Name","Phone Number","Email","Product","Quantity","Size","Price","Total Cost"],data: purchased_orders.to_json,filename: "Purchased Students", format: "csv"), class: "btn btn-primary btn-dark-blue" %>
+		</div>
 	<% end %>
 <% else %>
 	Currently not an admin, contact administrator.
