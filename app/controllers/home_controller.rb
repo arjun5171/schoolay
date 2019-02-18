@@ -1,11 +1,13 @@
 class HomeController < ApplicationController
+
+  before_action :set_current_franchise
+
   include HomeHelper
 
   def index
     @franchise_list = current_user.try(:franchises)    
-    franchise = @franchise_list.try(:first)
-    franchise = Franchise.find_by_id(params[:franchise_id])  if params[:franchise_id].present? and current_user.try(:access?,params[:franchise_id])
-    @franchise_data = franchise.transaction_data  if franchise.present?
+    @current_franchise = @franchise_list.try(:first)
+    @franchise_data = @current_franchise.transaction_data  if @current_franchise.present?
   end
 
   def contact

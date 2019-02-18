@@ -1,0 +1,27 @@
+
+<div class="container">
+	<h2>Sales Details</h2>
+	<table class="table table-striped">
+	  <thead>
+	    <tr>
+	      <th>Product Name</th>
+	      <th>Total Sales</th>
+	      <th>Total Amount</th>
+	      <th>Commission/Unit</th>
+	      <th>Total Commission</th>
+	    </tr>
+	  </thead>
+	  <tbody>
+	  	<% @purchased_items.each do |pdt_title,orders| %>
+	  	<% total_sales_amt = orders.sum.round(2) %>
+	    <tr>
+	      <td><%= pdt_title %></td>	
+	      <td><%= orders.length %></td>
+	      <td><%= total_sales_amt %></td>	
+	      <td> 10% </td>
+	      <td><%= (total_sales_amt * 0.1).round(2) %></td>
+	    </tr>
+	    <% end %>
+	  </tbody>
+	</table>			
+</div>

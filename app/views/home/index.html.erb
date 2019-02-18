@@ -24,6 +24,10 @@
 			</div>
 		</div>
 		
+		<div class="jumbotron text-center col-md-6">
+			<%= link_to "Product Sales", sales_report_franchise_path(id: @current_franchise.id), class: "btn btn-primary btn-dark-blue" %>
+		</div>
+
 		<div class="container">
 			<h2>Order Details</h2>
 			<table class="table table-striped">
@@ -56,13 +60,6 @@
 			  </tbody>
 			</table>			
 		</div>	
-
-		<% 
-			purchased_orders = @franchise_data["total_orders"].collect{|c| [c["shipping_address"].try(:[],"first_name").to_s+c["shipping_address"].try(:[],"last_name").to_s,c["phone"].to_s,c["email"].to_s,c["line_items"][0]["title"],c["line_items"][0]["quantity"],c["line_items"][0]["variant_title"],c["line_items"][0]["price"],c["total_price"] ]} 
-		%>	
-		<div class="jumbotron text-center col-md-6">
-			<%= link_to "Purchased Students", download_csv_home_index_path(headers: ["Name","Phone Number","Email","Product","Quantity","Size","Price","Total Cost"],data: purchased_orders.to_json,filename: "Purchased Students", format: "csv"), class: "btn btn-primary btn-dark-blue" %>
-		</div>
 	<% end %>
 <% else %>
 	Currently not an admin, contact administrator.

@@ -1,7 +1,18 @@
 Rails.application.routes.draw do
-  get 'franchise/index'
+  
+  namespace :admin do
+    resources :users
+    resources :app_configs
+    resources :franchises
 
-  get 'franchise/show'
+    root to: "users#index"
+  end
+
+  resources :franchise do
+    get :index, :on => :collection
+    get :show, :on => :collection
+    get :sales_report , :on => :member
+  end
 
   get 'auth/:provider/callback', to: 'sessions#create'
   get 'auth/failure', to: redirect('/')
