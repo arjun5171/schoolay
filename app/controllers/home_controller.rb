@@ -6,7 +6,7 @@ class HomeController < ApplicationController
 
   def index
     @franchise_list = current_user.try(:franchises)    
-    @current_franchise = @franchise_list.try(:first)
+    @current_franchise = @franchise_list.try(:first) if @current_franchise.nil?
     @franchise_data = @current_franchise.transaction_data  if @current_franchise.present?
   end
 
