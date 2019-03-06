@@ -17,7 +17,7 @@ class User < ApplicationRecord
 	end
 
 	def access? franchise_id
-		admin? || (franchise.present? and franchise.id == franchise_id)
+		admin? || (franchise.present? and franchise.id == franchise_id.to_i)
 	end
 
 end
