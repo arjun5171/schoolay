@@ -28,7 +28,7 @@ working_directory "/schoolay" # available in 0.94.0+
 listen "/tmp/unicorn.sock", :backlog => 1024, :tcp_nodelay => true, :tcp_nopush => false, :tries => 5, :delay => 0.5, :accept_filter => "httpready"
 
 # nuke workers after 30 seconds instead of 60 seconds (the default)
-timeout 30
+timeout 60
 
 # feel free to point this anywhere accessible on the filesystem
 pid "/schoolay/pids/railsapp.unicorn.pid"
